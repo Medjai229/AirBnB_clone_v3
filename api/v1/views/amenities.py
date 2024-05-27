@@ -48,7 +48,7 @@ def delete_amenity(amenity_id):
         return abort(404)
 
 
-@app_views.route('/amenities/', methods['POST'], strict_slashes=False)
+@app_views.route('/amenities/', methods=['POST'], strict_slashes=False)
 def create_amenity():
     """
     retrieves the amenity objects
@@ -67,7 +67,7 @@ def create_amenity():
     return jsonify(amenity.to_dict()), 200
 
 
-@app_views.route('/amenities/<amenity_id>', methods['PUT'],
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'],
                  strict_slashes=False)
 def update_amenity(amenity_id):
     """
