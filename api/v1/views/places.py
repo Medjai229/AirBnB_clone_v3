@@ -29,7 +29,7 @@ def get_place(place_id):
     """
     retrieves the places objects
     """
-    Place = storage.get(Amenity, place_id)
+    place = storage.get(Place, place_id)
     if Place:
         return jsonify(Place.to_dict())
     else:
@@ -42,7 +42,7 @@ def delete_place(place_id):
     """
     retrieves the places objects
     """
-    Place = storage.get(Amenity, place_id)
+    place = storage.get(Place, place_id)
     if Place:
         storage.delete(Place)
         storage.save()
