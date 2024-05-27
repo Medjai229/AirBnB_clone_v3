@@ -113,27 +113,51 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
-        
+
+
+class TestGetCountFileStorage(unittest.TestCase):
+    """Test the FileStorage class"""
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_get(self):
-        """Test that retrieve objects from file.json"""
-        state = State(name='Nairobi')
-        models.storage.new(state)
-        models.storage.save()
+        """Test that get returns the object based on the class and its ID"""
+        storage = FileStorage()
+        for key, value in classes.items():
+            instance = value()
+            instance_key = instance.__class__.__name__ + "." + instance.id
+            storage.new(instance)
+            retrieved_instance = storage.get(value, instance.id)
+            self.assertEqual(instance, retrieved_instance)
 
-        state_obj = models.storage.get(State, state.id)
-
-        self.assertEqual(state, state_obj)
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get_none(self):
+        """Test that get returns None if the object is not found"""
+        storage = FileStorage()
+        for key, value in classes.items():
+            instance = value()
+            instance_key = instance.__class__.__name__ + "." + instance.id
+            storage.new(instance)
+            retrieved_instance = storage.get(value, "nonexistent_id")
+            self.assertIsNone(retrieved_instance)
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_count(self):
-        """Test that counts objects from file.json"""
-        objs_from_all = len(models.storage.all())
-        objs_from_count = models.storage.count()
+        """Test that count returns the number of objects in storage"""
+        storage = FileStorage()
+        for key, value in classes.items():
+            instance = value()
+            instance_key = instance.__class__.__name__ + "." + instance.id
+            storage.new(instance)
+        count = storage.count()
+        self.assertEqual(count, len(storage.all()))
 
-        self.assertEqual(objs_from_all, objs_from_count)
-
-        states_from_all = len(models.storage.all(State))
-        states_from_count = models.storage.count(State)
-
-        self.assertEqual(states_from_all, states_from_count)
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count_by_class(self):
+        """Test that count returns the number of objects in storage by class"""
+        storage = FileStorage()
+        for key, value in classes.items():
+            instance = value()
+            instance_key = instance.__class__.__name__ + "." + instance.id
+            storage.new(instance)
+        for key, value in classes.items():
+            count = storage.count(value)
+            self.assertEqual(count, len(storage.all(value)))
