@@ -12,18 +12,19 @@ app = Flask(__name__)
 
 app.register_blueprint(app_views)
 
+
 @app.teardown_appcontext
 def close_storage(exception):
     """
-    
+
     """
     storage.close()
-    
+
 
 @app.errorhandler(404)
 def not_found(error):
     """
-    
+
     """
     response = {"error": "Not found"}
     return jsonify(response), 404
