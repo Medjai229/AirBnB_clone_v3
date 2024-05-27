@@ -111,7 +111,7 @@ def places_search():
         return abort(400, "NOt a JSON")
     if not request.get_json():
         return abort(400, "NOt a JSON")
-    
+
     data = request.get_json()
 
     if data:
@@ -132,7 +132,7 @@ def places_search():
                     if city:
                         for place in city.places:
                             list_places.append(place)
-    
+
     if cities:
         city_obj = [storage.get(City, city_id) for city_id in cities]
         for city in city_obj:
@@ -140,7 +140,7 @@ def places_search():
                 for place in city.places:
                     if place not in list_places:
                         list_places.append(place)
-    
+
     if amenities:
         if not list_places:
             all_places = storage.all(Place).values()
@@ -148,10 +148,10 @@ def places_search():
             for place in all_places:
                 if all([am in place.amenities for am in amenities_obj]):
                     list_places.append(place)
-    
+
     places = []
     for plc_Obj in list_places:
         plc_dict = plc_Obj.to_dict()
         plc_dict.pop('amentites', None)
         places.append(plc_dict)
-    return jsonify(places)  
+    return jsonify(places)
