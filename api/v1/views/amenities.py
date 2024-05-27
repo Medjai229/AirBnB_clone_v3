@@ -64,7 +64,7 @@ def create_amenity():
 
     amenity = Amenity(**data)
     amenity.save()
-    return jsonify(amenity.to_dict()), 200
+    return jsonify(amenity.to_dict()), 201
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'],
