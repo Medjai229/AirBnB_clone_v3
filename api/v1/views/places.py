@@ -126,7 +126,7 @@ def places_search():
 
     if states:
         states_obj = [storage.get(State, state_id) for state_id in states]
-        for state in states:
+        for state in states_obj:
             if state:
                 for city in state.cities:
                     if city:
