@@ -19,11 +19,8 @@ def get_place_reviews(place_id):
     place = storage.get(Place, place_id)
     if not place:
         return abort(404)
-    review_list = []
-    for key, value in storage.all(Review).items():
-        if value.place_id == place_id:
-            review_list.append(value.to_dict())
-    return jsonify(review_list)
+    reviews = [review.to_dict() for review in place.reviews]
+    return jsonify(reviews)
 
 @app_views.route('/reviews/<review_id>', strict_slashes=False)
 def get_review(review_id):
