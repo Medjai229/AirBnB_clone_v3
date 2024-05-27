@@ -65,12 +65,16 @@ def create_review(place_id):
     user = storage.get(User, data['user_id'])
     if not user:
         return abort(404)
+    
+    place = storage.get(Place, place_id)
+    if not place:
+        return abort(404)
 
     if 'text' not in data:
         return abort(400, 'Missing text')
-    review['place_id'] = place_id
 
     review = Review(**data)
+    review.place_id = place_id
     review.save()
     return jsonify(review.to_dict()), 201
 
