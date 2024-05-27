@@ -41,7 +41,7 @@ def delete_amenity(amenity_id):
     """
     amenity = storage.get(Amenity, amenity_id)
     if amenity:
-        sotarge.delete(amenity)
+        storage.delete(amenity)
         storage.save()
         return jsonify({}), 200
     else:
