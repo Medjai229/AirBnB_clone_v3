@@ -30,7 +30,7 @@ def get_place(place_id):
     retrieves the places objects
     """
     place = storage.get(Place, place_id)
-    if Place:
+    if place:
         return jsonify(Place.to_dict())
     else:
         return abort(404)
@@ -43,8 +43,8 @@ def delete_place(place_id):
     retrieves the places objects
     """
     place = storage.get(Place, place_id)
-    if Place:
-        storage.delete(Place)
+    if place:
+        storage.delete(place)
         storage.save()
         return jsonify({}), 200
     else:
