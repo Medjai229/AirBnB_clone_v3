@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-route for handling Amenity objects and operations
+route for handling Place objects and operations
 """
 
 from flask import jsonify, abort, request
@@ -12,7 +12,7 @@ from models import storage
 from api.v1.views import app_views
 
 
-@app_views.route('/states/<state_id>/cities', strict_slashes=False)
+@app_views.route('/cities/<city_id>/places', strict_slashes=False)
 def get_places_by_city(city_id):
     """
     retrieves all City objects associated with a State
@@ -27,7 +27,7 @@ def get_places_by_city(city_id):
 @app_views.route('/places/<places_id>', strict_slashes=False)
 def get_place(place_id):
     """
-    retrieves the amenity objects
+    retrieves the places objects
     """
     Place = storage.get(Amenity, place_id)
     if Place:
@@ -40,7 +40,7 @@ def get_place(place_id):
                  strict_slashes=False)
 def delete_place(place_id):
     """
-    retrieves the amenity objects
+    retrieves the places objects
     """
     Place = storage.get(Amenity, place_id)
     if Place:
@@ -55,7 +55,7 @@ def delete_place(place_id):
                  strict_slashes=False)
 def create_place(city_id):
     """
-    retrieves the amenity objects
+    retrieves the places objects
     """
     city = storage.get(City, city_id)
 
@@ -84,7 +84,7 @@ def create_place(city_id):
                  strict_slashes=False)
 def update_place(place_id):
     """
-    retrieves the amenity objects
+    retrieves the places objects
     """
     place = storage.get(Place, place_id)
     if place:
