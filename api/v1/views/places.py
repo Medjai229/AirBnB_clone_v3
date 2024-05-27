@@ -4,7 +4,6 @@ route for handling Place objects and operations
 """
 
 from flask import jsonify, abort, request
-from models.amenity import Amenity
 from models.city import City
 from models.user import User
 from models.place import Place
@@ -24,7 +23,7 @@ def get_places_by_city(city_id):
     return jsonify(places)
 
 
-@app_views.route('/places/<places_id>', strict_slashes=False)
+@app_views.route('/places/<place_id>', strict_slashes=False)
 def get_place(place_id):
     """
     retrieves the places objects
@@ -36,7 +35,7 @@ def get_place(place_id):
         return abort(404)
 
 
-@app_views.route('/places/<places_id>', methods=['DELETE'],
+@app_views.route('/places/<place_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_place(place_id):
     """
