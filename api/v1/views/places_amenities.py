@@ -55,4 +55,3 @@ def amenity_to_place(place_id=None, amenity_id=None):
             place.amenities = amenity
         place.save()
         return jsonify(amenity.to_dict()), 201
-    
