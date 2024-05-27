@@ -31,7 +31,7 @@ def get_place(place_id):
     """
     place = storage.get(Place, place_id)
     if place:
-        return jsonify(Place.to_dict())
+        return jsonify(place.to_dict())
     else:
         return abort(404)
 
@@ -66,7 +66,7 @@ def create_place(city_id):
         return abort(400, 'Not a JSON')
     data = request.get_json()
     if 'user_id' not in data:
-        abort(400, 'Missing name')
+        abort(400, 'Missing user_id')
     if 'name' not in data:
         return abort(400, 'Missing name')
 
@@ -77,7 +77,7 @@ def create_place(city_id):
     data['city_id'] = city_id
     place = Place(**data)
     place.save()
-    return jsonify(place.to_dict(), 201)
+    return jsonify(place.to_dict()), 201
 
 
 @app_views.route('/place/<place_id>', methods=['PUT'],
