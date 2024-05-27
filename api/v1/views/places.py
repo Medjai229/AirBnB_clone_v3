@@ -144,10 +144,10 @@ def places_search():
     if amenities:
         if not list_places:
             all_places = storage.all(Place).values()
-            amenities_obj = [storage.get(Amenity, a_id) for a_id in amenities]
-            for place in all_places:
-                if all([am in place.amenities for am in amenities_obj]):
-                    list_places.append(place)
+        amenities_obj = [storage.get(Amenity, a_id) for a_id in amenities]
+        for place in all_places:
+            if all([am in place.amenities for am in amenities_obj]):
+                list_places.append(place)
 
     places = []
     for plc_Obj in list_places:
